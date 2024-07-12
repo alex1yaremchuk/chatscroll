@@ -1,0 +1,27 @@
+{
+  "name": "chatscroll",
+  "version": "1.0.0",
+  "description": "Makes ChatGPT site scrollable with keyboard.",
+  "main": "src/main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest --env=jsdom"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^24.1.0",
+    "puppeteer": "^18.2.1",
+    "util": "^0.12.5"
+  },
+  "jest": {
+    "setupFiles": [
+      "./jest.setup.js"
+    ]
+  }
+}
