@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - "v*"
 
 jobs:
   test:
@@ -21,18 +23,20 @@ jobs:
       - name: Run tests
         run: npm test
 
-  # deploy:
-  #   needs: test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v2
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    if: success() && github.ref_type == 'tag'
 
-  #     - name: Deploy to Greasy Fork
-  #       env:
-  #         GF_USER: ${{ secrets.GF_USER }}
-  #         GF_PASSWORD: ${{ secrets.GF_PASSWORD }}
-  #       run: |
-  #         curl -u $GF_USER:$GF_PASSWORD \
-  #         -F "script=@src/main.js" \
-  #         https://greasyfork.org/en/scripts/upload
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy to Greasy Fork
+        # env:
+        #   GF_USER: ${{ secrets.GF_USER }}
+        #   GF_PASSWORD: ${{ secrets.GF_PASSWORD }}
+        run: |
+          curl -X POST -H "Content-Type: application/json" \
+          -d '{"event_type": "push"}' \
+          https://greasyfork.org/en/users/1280205-alexander-yaremchuk/webhook
