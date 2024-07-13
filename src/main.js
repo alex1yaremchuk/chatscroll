@@ -11,10 +11,7 @@
 // ==/UserScript==
 
 function onNavigation() {
-  console.log("============helllo===============");
   var elem = document.querySelector("div.flex.flex-col.text-sm.md\\:pb-9");
-  console.log("!!!", elem);
-  console.log("===", document.documentElement.innerHTML);
   if (elem) {
     elem.setAttribute("tabindex", "1");
   }
