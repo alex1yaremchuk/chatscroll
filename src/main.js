@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Make ChatGPT scrollable with keyboard
 // @namespace    http://tampermonkey.net/
-// @version      2024-07-13
+// @version      2024-07-14
 // @description  This app makes it scrollable by setting tabindex to outer div making it focusable
 // @author       Alexander Yaremchuk & ChatGPT
 // @match        https://chatgpt.com/*
