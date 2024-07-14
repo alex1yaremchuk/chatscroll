@@ -26,6 +26,7 @@ jobs:
   deploy:
     needs: test
     runs-on: ubuntu-latest
+    environment: production
     if: success() && github.ref_type == 'tag'
 
     steps:
@@ -33,10 +34,15 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Deploy to Greasy Fork
-        # env:
-        #   GF_USER: ${{ secrets.GF_USER }}
-        #   GF_PASSWORD: ${{ secrets.GF_PASSWORD }}
+        env:
+          GF_WEBHOOK_SECRET: ${{ secrets.GF_WEBHOOK_SECRET }}
         run: |
-          curl -X POST -H "Content-Type: application/json" \
+          response=$(curl -s -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" \
+          -H "Authorization: Bearer $GF_WEBHOOK_SECRET" \
           -d '{"event_type": "push"}' \
-          https://greasyfork.org/en/users/1280205-alexander-yaremchuk/webhook
+          https://greasyfork.org/en/users/1280205-alexander-yaremchuk/webhook)
+          echo "Response code: $response"
+          if [ "$response" -ne 200 ]; then
+            echo "Deployment failed with response code $response"
+            exit 1
+          fi
