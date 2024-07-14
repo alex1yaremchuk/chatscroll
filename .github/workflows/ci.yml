@@ -23,26 +23,26 @@ jobs:
       - name: Run tests
         run: npm test
 
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    environment: production
-    if: success() && github.ref_type == 'tag'
+  # deploy:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   environment: production
+  #   if: success() && github.ref_type == 'tag'
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Deploy to Greasy Fork
-        env:
-          GF_WEBHOOK_SECRET: ${{ secrets.GF_WEBHOOK_SECRET }}
-        run: |
-          response=$(curl -v -s -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" \
-          -H "Authorization: Bearer 253740dc6be0333133f085daf337be4e0f4de6394e20a016d94021fcbe3b943665457ee6a0594a634a8bd4bfc90bd85a827491fd5fd87c21dbecb36d0ff21e07" \
-          -d '{"event_type": "release"}' \
-          https://greasyfork.org/en/users/1280205-alexander-yaremchuk/webhook)
-          echo "Response code: $response"
-          if [ "$response" -ne 200 ]; then
-            echo "Deployment failed with response code $response"
-            exit 1
-          fi
+  #     - name: Deploy to Greasy Fork
+  #       env:
+  #         GF_WEBHOOK_SECRET: ${{ secrets.GF_WEBHOOK_SECRET }}
+  #       run: |
+  #         response=$(curl -v -s -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" \
+  #         -H "Authorization: Bearer $GF_WEBHOOK_SECRET" \
+  #         -d '{"event_type": "release"}' \
+  #         https://greasyfork.org/en/users/1280205-alexander-yaremchuk/webhook)
+  #         echo "Response code: $response"
+  #         if [ "$response" -ne 200 ]; then
+  #           echo "Deployment failed with response code $response"
+  #           exit 1
+  #         fi
