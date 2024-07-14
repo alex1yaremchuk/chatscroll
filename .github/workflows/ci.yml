@@ -39,7 +39,7 @@ jobs:
         run: |
           response=$(curl -v -s -o /dev/null -w "%{http_code}" -X POST -H "Content-Type: application/json" \
           -H "Authorization: Bearer 253740dc6be0333133f085daf337be4e0f4de6394e20a016d94021fcbe3b943665457ee6a0594a634a8bd4bfc90bd85a827491fd5fd87c21dbecb36d0ff21e07" \
-          -d '{"event_type": "push"}' \
+          -d '{"event_type": "release"}' \
           https://greasyfork.org/en/users/1280205-alexander-yaremchuk/webhook)
           echo "Response code: $response"
           if [ "$response" -ne 200 ]; then
