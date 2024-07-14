@@ -23,50 +23,50 @@ jobs:
       - name: Run tests
         run: npm test
 
-  deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    environment: production
-    if: success() && github.ref_type == 'tag'
+  # deploy:
+  #   needs: test
+  #   runs-on: ubuntu-latest
+  #   environment: production
+  #   if: success() && github.ref_type == 'tag'
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Deploy to Greasy Fork
-        env:
-          GF_WEBHOOK_SECRET: ${{ secrets.GF_WEBHOOK_SECRET }}
-        run: |
-          payload='{
-            "ref": "refs/tags/v2024-07-13",
-            "before": "a4e6c9625545b2af76743283d1efb9b10504a03e",
-            "after": "0000000000000000000000000000000000000000",
-            "repository": {
-              "id": 826871908,
-              "name": "chatscroll",
-              "full_name": "alex1yaremchuk/chatscroll",
-              "private": false,
-              "owner": {
-                "name": "alex1yaremchuk",
-                "email": "40666786+alex1yaremchuk@users.noreply.github.com"
-              },
-              "html_url": "https://github.com/alex1yaremchuk/chatscroll",
-              "default_branch": "main"
-            },
-            "pusher": {
-              "name": "alex1yaremchuk",
-              "email": "40666786+alex1yaremchuk@users.noreply.github.com"
-            },
-            "created": false,
-            "deleted": true,
-            "forced": false
-          }'
-          response=$(curl -v -X POST -H "Content-Type: application/json" \
-          -H "Authorization: Bearer ea3b2ea5c59081b8856c32b8cbf7848228e56308b7885c98accdcc462a72d1a1c135103b4735e1613c39fbbef4825558497ceebcadc4c6de42d1735174a3ed1f" \
-          -d "$payload" \
-          https://greasyfork.org/en/users/1280205-alex1yaremchuk/webhook)
-          echo "Response code: $response"
-          if [ "$response" -ne 200 ]; then
-            echo "Deployment failed with response code $response"
-            exit 1
-          fi
+  #     - name: Deploy to Greasy Fork
+  #       env:
+  #         GF_WEBHOOK_SECRET: ${{ secrets.GF_WEBHOOK_SECRET }}
+  #       run: |
+  #         payload='{
+  #           "ref": "refs/tags/v2024-07-13",
+  #           "before": "a4e6c9625545b2af76743283d1efb9b10504a03e",
+  #           "after": "0000000000000000000000000000000000000000",
+  #           "repository": {
+  #             "id": 826871908,
+  #             "name": "chatscroll",
+  #             "full_name": "alex1yaremchuk/chatscroll",
+  #             "private": false,
+  #             "owner": {
+  #               "name": "alex1yaremchuk",
+  #               "email": "40666786+alex1yaremchuk@users.noreply.github.com"
+  #             },
+  #             "html_url": "https://github.com/alex1yaremchuk/chatscroll",
+  #             "default_branch": "main"
+  #           },
+  #           "pusher": {
+  #             "name": "alex1yaremchuk",
+  #             "email": "40666786+alex1yaremchuk@users.noreply.github.com"
+  #           },
+  #           "created": false,
+  #           "deleted": true,
+  #           "forced": false
+  #         }'
+  #         response=$(curl -v -X POST -H "Content-Type: application/json" \
+  #         -H "Authorization: Bearer ea3b2ea5c59081b8856c32b8cbf7848228e56308b7885c98accdcc462a72d1a1c135103b4735e1613c39fbbef4825558497ceebcadc4c6de42d1735174a3ed1f" \
+  #         -d "$payload" \
+  #         https://greasyfork.org/en/users/1280205-alex1yaremchuk/webhook)
+  #         echo "Response code: $response"
+  #         if [ "$response" -ne 200 ]; then
+  #           echo "Deployment failed with response code $response"
+  #           exit 1
+  #         fi
