@@ -10,6 +10,7 @@
 // @license      MIT
 // ==/UserScript==
 
+//minor change to test publishing
 function onNavigation() {
   var elem = document.querySelector("div.flex.flex-col.text-sm.md\\:pb-9");
   if (elem) {
