@@ -31,6 +31,7 @@ function onNavigation() {
     console.log("Scroll for ChatGPT setting a mutation listener");
 
     const callback = function (mutationsList, observer) {
+      console.log("Scroll for ChatGPT mutations: ", mutationsList);
       for (let mutation of mutationsList) {
         if (mutation.type === "childList") {
           console.log("Scroll for ChatGPT running onNavigation");
