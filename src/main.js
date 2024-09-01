@@ -11,9 +11,13 @@
 // ==/UserScript==
 
 function onNavigation() {
-  var elem = document.querySelector("div.flex.flex-col.text-sm.md\\:pb-9");
+  const style = "div.flex.flex-col.text-sm.md\\:pb-9";
+  const elem = document.querySelector(style);
   if (elem) {
     elem.setAttribute("tabindex", "1");
+    console.log("Scroll for ChatGPT completed successfully.");
+  } else {
+    console.log(`element with style ${style} not found.`);
   }
 }
 
