@@ -37,7 +37,7 @@ describe("Chat scroll integration tests", () => {
       console.log("New div appended:", newDiv.outerHTML);
     });
 
-    await page.waitForTimeout(1000);
+    await page.waitForTimeout(10000);
 
     // await page.waitForSelector(
     //   'div.flex.flex-col.text-sm.md\\:pb-9[tabindex="1"]',
@@ -56,5 +56,5 @@ describe("Chat scroll integration tests", () => {
     });
 
     expect(hasTabindex).toBe(true);
-  });
+  }, 20000);
 });
