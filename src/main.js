@@ -30,21 +30,26 @@ function onNavigation() {
   ) {
     console.log("Scroll for ChatGPT setting a mutation listener");
 
-    const callback = function (mutationsList, observer) {
-      console.log("Scroll for ChatGPT mutations: ", mutationsList);
-      for (let mutation of mutationsList) {
-        if (mutation.type === "childList") {
-          console.log("Scroll for ChatGPT running onNavigation");
-          onNavigation();
-          break;
-        }
-      }
-    };
-
-    const observer = new MutationObserver(callback);
-
-    observer.observe(document.body, { childList: true, subtree: true });
+    window.addEventListener("load", () => {
+      console.log("Window fully loaded, setting up mutation observer");
+      initializeObserver();
+    });
   }
 })();
+
+function initializeObserver() {
+  const callback = function (mutationsList, observer) {
+    console.log("Scroll for ChatGPT mutations: ", mutationsList);
+    for (let mutation of mutationsList) {
+      if (mutation.type === "childList") {
+        console.log("Scroll for ChatGPT running onNavigation");
+        onNavigation();
+        break;
+      }
+    }
+  };
+  const observer = new MutationObserver(callback);
+  observer.observe(document.body, { childList: true, subtree: true });
+}
 
 module.exports = { onNavigation };
