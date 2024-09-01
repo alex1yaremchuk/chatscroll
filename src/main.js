@@ -23,17 +23,17 @@ function onNavigation() {
 
 (function () {
   ("use strict");
-  conole.log("Scroll for ChatGPT is starting");
+  console.log("Scroll for ChatGPT is starting");
   if (
     typeof document !== "undefined" &&
     typeof MutationObserver !== "undefined"
   ) {
-    conole.log("Scroll for ChatGPT setting a mutation listener");
+    console.log("Scroll for ChatGPT setting a mutation listener");
 
     const callback = function (mutationsList, observer) {
       for (let mutation of mutationsList) {
         if (mutation.type === "childList") {
-          conole.log("Scroll for ChatGPT running onNavigation");
+          console.log("Scroll for ChatGPT running onNavigation");
           onNavigation();
           break;
         }
