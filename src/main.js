@@ -15,34 +15,35 @@ function onNavigation() {
   const elem = document.querySelector(style);
   if (elem) {
     elem.setAttribute("tabindex", "1");
-    console.log("Scroll for ChatGPT completed successfully.");
+    // console.log("Scroll for ChatGPT completed successfully.");
   } else {
-    console.log(`element with style ${style} not found.`);
+    // console.log(`element with style ${style} not found.`);
   }
 }
 
 (function () {
   ("use strict");
-  console.log("Scroll for ChatGPT is starting");
+  // console.log("Scroll for ChatGPT is starting");
   if (
     typeof document !== "undefined" &&
     typeof MutationObserver !== "undefined"
   ) {
-    console.log("Scroll for ChatGPT setting a mutation listener");
+    // console.log("Scroll for ChatGPT setting a mutation listener");
 
-    window.addEventListener("load", () => {
-      console.log("Window fully loaded, setting up mutation observer");
+    setTimeout(() => {
+      onNavigation();
       initializeObserver();
-    });
+      // console.log("Mutation observer initialized after delay");
+    }, 3000); // 3-second delay, give time to load
   }
 })();
 
 function initializeObserver() {
   const callback = function (mutationsList, observer) {
-    console.log("Scroll for ChatGPT mutations: ", mutationsList);
+    // console.log("Scroll for ChatGPT mutations: ", mutationsList);
     for (let mutation of mutationsList) {
       if (mutation.type === "childList") {
-        console.log("Scroll for ChatGPT running onNavigation");
+        // console.log("Scroll for ChatGPT running onNavigation");
         onNavigation();
         break;
       }
