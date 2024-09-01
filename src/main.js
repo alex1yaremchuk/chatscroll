@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Make ChatGPT scrollable with keyboard
 // @namespace    http://tampermonkey.net/
-// @version      2024-07-14
+// @version      2024-09-01
 // @description  This app makes it scrollable by setting tabindex to outer div making it focusable
 // @author       Alexander Yaremchuk & ChatGPT
 // @match        https://chatgpt.com/*
@@ -22,14 +22,18 @@ function onNavigation() {
 }
 
 (function () {
-  "use strict";
+  ("use strict");
+  conole.log("Scroll for ChatGPT is starting");
   if (
     typeof document !== "undefined" &&
     typeof MutationObserver !== "undefined"
   ) {
+    conole.log("Scroll for ChatGPT setting a mutation listener");
+
     const callback = function (mutationsList, observer) {
       for (let mutation of mutationsList) {
         if (mutation.type === "childList") {
+          conole.log("Scroll for ChatGPT running onNavigation");
           onNavigation();
           break;
         }
